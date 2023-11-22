@@ -44,11 +44,6 @@ body.wrong{
 }
 
 
-.question-cont2{
-font-size: 1.5rem;
-padding: 20px 10px;
-
-}
 .btn-grid {
   display: grid;
   grid-template-columns: repeat(2 , auto);
@@ -71,10 +66,11 @@ outline: none;
   border-color: rgb(11, 11, 11);
 }
 
-.btn.coreect{
-  background-color: var(--hue-wrong);
+.btn.correct {
+  background-color: var(--hue-correct);
   color: black;
 }
+
 
 .btn.wrong{
 background-color: var(--hue-wrong);

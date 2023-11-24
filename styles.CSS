@@ -24,13 +24,6 @@ body {
   align-items: center;
 }
 
-body.correct {
-  background-color: var(--hue-correct);
-}
-
-body.wrong {
-  background-color: var(--hue-wrong);
-}
 
 .container {
   width: 800px;
@@ -63,12 +56,12 @@ body.wrong {
 }
 
 .btn.correct {
-  background-color: var(--hue-correct);
+  background-color:green;
   color: black;
 }
 
 .btn.wrong {
-  background-color: var(--hue-wrong);
+  background-color: red;
 }
 
 .start-btn,

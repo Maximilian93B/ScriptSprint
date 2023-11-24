@@ -5,6 +5,9 @@ const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-buttons");
 const timerElement = document.getElementById("timer");
 const scoreElement = document.getElementById("score")
+const nameInput = document.getElementById("name-input");
+const saveScoreBtn = document.getElementById("save-score-btn");
+
 
 let score = 0 ;
 let shuffledQuestion, currentQuestionIndex, timer ;
@@ -13,6 +16,8 @@ let timerInterval;
 startButton.addEventListener('click', startGame);
 nextButton.addEventListener('click', setNextQuestion);
 
+
+
 function startGame() {
     startButton.classList.add("hide");
     shuffledQuestion = questions.sort(() => Math.random() - 0.5);
@@ -20,17 +25,19 @@ function startGame() {
     questionContainer.classList.remove("hide");
     timer = 300; 
     score = 0;
-    // Start the timer
-    scoreElement.classList.remove("hide");
-    timerElement.classList.remove("hide")
-    
+    // Start the timer   
     startTimer();
+   
+    scoreElement.classList.remove("hide");
+    timerElement.classList.remove("hide"); 
     
+
+
     showQuestion(shuffledQuestion[currentQuestionIndex]);
 }
 
 function startTimer() {
-    timerInterval = setInterval(() => {
+    const timerInterval = setInterval(() => {
         timer--;
         updateTimerDisplay();
 
@@ -98,7 +105,6 @@ function disableAnswerButtons() {
 }
 
 function updateScoreDisplay() {
-    // Update the score display in the HTML
     scoreElement.innerText = `Score: ${score}`;
 }
 
@@ -116,10 +122,32 @@ function setNextQuestion() {
 }
 
 function handleEndOfGame() {
-    clearInterval(timerInterval)
-    alert ( "Game Over! Your Final Score is: ${score}");
-
+ 
+   clearInterval(timerInterval)
+    nameInput.classList.remove("hide");
+    saveScoreBtn.classList.remove("hide");
+   
+ 
 }
+
+
+///HIGH SCORES + SAVE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

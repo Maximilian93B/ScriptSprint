@@ -121,28 +121,31 @@ function setNextQuestion() {
     }
 }
 
+//End game 
+///high score + save
+// get high scores from local storage
 function handleEndOfGame() {
- 
-   clearInterval(timerInterval)
-    nameInput.classList.remove("hide");
-    saveScoreBtn.classList.remove("hide");
-   
- 
+
+    console.log("Game Over. Score:", timer);
+    
+    clearInterval(timerInterval);
+    saveHighScore(timer);
 }
 
+function saveHighScore(finalTime) {
+    const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    const user = prompt("Enter your name:");
 
-///HIGH SCORES + SAVE
+    highScores.push({ name: user, score: finalTime });
 
+    highScores.sort((a, b) => b.score - a.score);
 
+    const top5HighScores = highScores.slice(0, 5);
 
+    localStorage.setItem("highScores", JSON.stringify(top5HighScores));
 
-
-
-
-
-
-
-
+    console.log("High score saved!");
+}
 
 
 

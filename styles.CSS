@@ -84,3 +84,11 @@ body {
 .hide {
   display: none;
 }
+
+
+#name-input,
+#save-score-btn {
+    display: block;
+}
+
+

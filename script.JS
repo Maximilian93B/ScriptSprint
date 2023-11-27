@@ -30,14 +30,14 @@ function startGame() {
    
     scoreElement.classList.remove("hide");
     timerElement.classList.remove("hide"); 
-    
+
 
 
     showQuestion(shuffledQuestion[currentQuestionIndex]);
 }
 
 function startTimer() {
-    const timerInterval = setInterval(() => {
+        timerInterval = setInterval(() => {
         timer--;
         updateTimerDisplay();
 
@@ -114,11 +114,40 @@ function setNextQuestion() {
     if (currentQuestionIndex < shuffledQuestion.length) {
         showQuestion(shuffledQuestion[currentQuestionIndex]);
     } else {
-        // No more questions, hide the question container and show the start button
+        // No more questions -->hide the question container and show the start button
         questionContainer.classList.add('hide');
         startButton.classList.remove('hide');
         clearInterval(timerInterval); // Stop the timer when all questions are answered
     }
+}
+
+function saveHighScore(finalTime) {
+    const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    const user = prompt("Enter your name:");
+
+    highScores.push({ name: user, score: finalTime });
+
+    highScores.sort((a, b) => b.score - a.score);
+
+   localStorage.setItem("highScores", JSON.stringify(highScores));
+
+    displayHighScores()
+    
+    console.log("High score saved!");
+}
+
+function displayHighScores(){
+    const highScoresContainer = document.getElementById("high-scores-container");
+
+    const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+    highScoresContainer.innerHTML = <h2>High Scores</h2>;
+
+    highScores.forEach((score, index) => {
+        const scoreItem = document.createElement("p");
+        scoreItem.innerText = `${index + 1}. ${score.name}: ${score.score}`;
+        highScoresContainer.appendChild(scoreItem);
+    })
 }
 
 //End game 
@@ -130,30 +159,14 @@ function handleEndOfGame() {
     
     clearInterval(timerInterval);
     saveHighScore(timer);
+    
+    scoreElement.classList.remove("hide");
+    timerElement.classList.remove("hide");
+
+    nameInput.classList.remove("hide");
+    saveScoreBtn.classList.remove("hide");
+    
 }
-
-function saveHighScore(finalTime) {
-    const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-    const user = prompt("Enter your name:");
-
-    highScores.push({ name: user, score: finalTime });
-
-    highScores.sort((a, b) => b.score - a.score);
-
-    const top5HighScores = highScores.slice(0, 5);
-
-    localStorage.setItem("highScores", JSON.stringify(top5HighScores));
-
-    console.log("High score saved!");
-}
-
-
-
-
-
-
-
-
 
 
 const questions = [

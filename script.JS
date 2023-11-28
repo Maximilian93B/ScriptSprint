@@ -23,18 +23,22 @@ function startGame() {
     shuffledQuestion = questions.sort(() => Math.random() - 0.5);
     currentQuestionIndex = 0;
     questionContainer.classList.remove("hide");
-    timer = 300; 
+    timer = 300;
     score = 0;
-    // Start the timer   
+
+    // hide input and save btn
+    nameInput.classList.add("hide");
+    saveScoreBtn.classList.add("hide");
+
+    // Start the timer
     startTimer();
-   
+
     scoreElement.classList.remove("hide");
-    timerElement.classList.remove("hide"); 
-
-
+    timerElement.classList.remove("hide");
 
     showQuestion(shuffledQuestion[currentQuestionIndex]);
 }
+
 
 function startTimer() {
         timerInterval = setInterval(() => {
@@ -70,6 +74,7 @@ function showQuestion(question) {
         button.addEventListener('click', (event) => selectAnswer(event, answer));
         answerButtonsElement.appendChild(button);
     });
+
 }
 
 function selectAnswer(event, selectedAnswer) {
@@ -91,11 +96,6 @@ function selectAnswer(event, selectedAnswer) {
 
     setTimeout(setNextQuestion, 1000);
 }
-
-
-
-
-
 
 function disableAnswerButtons() {
     const buttons = document.querySelectorAll('.btn');
@@ -121,34 +121,41 @@ function setNextQuestion() {
     }
 }
 
+
+saveScoreBtn.addEventListener('click', () => {
+    console.log("saving high score")
+    saveHighScore(timer);
+    
+});
+
 function saveHighScore(finalTime) {
     const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
     const user = prompt("Enter your name:");
 
-    highScores.push({ name: user, score: finalTime });
+    const newScore = { name: user, score: finalTime };
+
+    highScores.push(newScore);
 
     highScores.sort((a, b) => b.score - a.score);
 
-   localStorage.setItem("highScores", JSON.stringify(highScores));
+    const top5HighScores = highScores.slice(0, 5);
 
-    displayHighScores()
-    
-    console.log("High score saved!");
+    localStorage.setItem("highScores", JSON.stringify(top5HighScores));
+
+    console.log("High score saved:", newScore);
+
+    displayHighScores();
 }
 
-function displayHighScores(){
-    const highScoresContainer = document.getElementById("high-scores-container");
 
+// Function to display high scores
+function displayHighScores() {
+    console.log("Displaying high scores");
     const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
-    highScoresContainer.innerHTML = <h2>High Scores</h2>;
-
-    highScores.forEach((score, index) => {
-        const scoreItem = document.createElement("p");
-        scoreItem.innerText = `${index + 1}. ${score.name}: ${score.score}`;
-        highScoresContainer.appendChild(scoreItem);
-    })
+    console.log("High Scores:", highScores);
 }
+
 
 //End game 
 ///high score + save
@@ -166,6 +173,7 @@ function handleEndOfGame() {
     nameInput.classList.remove("hide");
     saveScoreBtn.classList.remove("hide");
     
+    displayHighScores();
 }
 
 
@@ -253,6 +261,6 @@ const questions = [
             { text: "To include an external script file.", correct: false },
             { text: "To link to an external web page.", correct: false },
         ]
-    },
+    }
 
 ];

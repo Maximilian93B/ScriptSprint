@@ -86,8 +86,8 @@ body {
 }
 
 
-#name-input,
-#save-score-btn {
+.name-input,
+.save-score-btn {
     display: block;
 }
 
